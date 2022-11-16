@@ -1,1 +1,47 @@
-
+<html>
+	<head>
+		<style>
+    			#puzzle {
+				display: inline-grid;
+				grid-template-columns: repeat(3, 1fr);
+				padding: 30vw;
+				padding-top: 10px;
+			}
+			input {
+				width: 10vw;
+				height: 10vw;
+				margin: 1px;
+				text-align: center;
+				font-size: 5vw;
+				background-color: blanchedalmond;
+			}
+		</style>
+		<script>
+			letter = ["Г", "Д", "Е", "Е", "С", "Т", "Ж", "У", " "];
+			btn = new Array(9);
+			function play(B){
+				n=btn.indexOf(B);
+				m=letter.indexOf(' ');
+				if (m==n-3 || m==n+3 || (m==n-1 || m==n+1) && (n-n%3)/3 == (m-m%3)/3){
+					btn[n].value=' ';
+					btn[m].value=letter[n];
+					letter[m]=letter[n];
+					letter[n]=' ';
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id=puzzle>
+		</div>
+		<script>
+			for(i=0; i<9; i++){
+				btn[i]= document.createElement("input");
+				btn[i].type = "button";
+				btn[i].value = letter[i];
+				btn[i].onclick=function(){play(this)};
+				document.getElementById('puzzle').appendChild(btn[i]);
+			}
+		</script>
+	</body>
+</html>
