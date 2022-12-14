@@ -1,0 +1,56 @@
+		<style>
+    			#puzzle {
+				display: inline-grid;
+				grid-template-columns: repeat(6, 1fr);
+				padding: 30vw;
+				padding-top: 10px;
+			}
+			input {
+				width: 10vw;
+				height: 10vw;
+				margin: 1px;
+				text-align: center;
+				font-size: 5vw;
+			}
+		</style>
+		<script>
+			numberOfButtons = 36;
+			column=6;
+			playGround = new Array(numberOfButtons);
+			for(i=0; i<numberOfButtons; i+=2){
+				playGround[i]=1;
+				playGround[i+1]=0;
+			}
+			letter = ["cyan1.png", "cyan2.png"];
+			playGround.sort(()=>Math.random()-0.5)
+			btn = new Array(numberOfButtons);
+			function play(B){
+				n = btn.indexOf(B);
+				playGround[n]=playGround[n] ? 0:1;
+				btn[n].src=letter[playGround[n]];
+				for(i=n%column; i<numberOfButtons ;i+=column){
+					playGround[i]=playGround[i] ? 0:1;
+					btn[i].src=letter[playGround[i]];
+				}
+				for(i=n-n%column; i<n-n%column+column ;i++){
+					playGround[i]=playGround[i] ? 0:1;
+					btn[i].src=letter[playGround[i]];
+				}
+		
+			}
+		</script>
+	</head>
+	<body>
+		<div id=puzzle>
+		</div>
+		<script>
+			for(i=0; i<numberOfButtons; i++){
+				btn[i] = document.createElement("input");
+				btn[i].type = "image";
+				btn[i].src = letter[playGround[i]];
+				btn[i].onclick = function() {play(this)};
+				document.getElementById('puzzle').appendChild(btn[i]);
+			}
+		</script>
+	</body>
+</html>
