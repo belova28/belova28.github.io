@@ -14,6 +14,9 @@
 				text-align: center;
 				font-size: 5vw;
 			}
+			form{
+				padding-left: 20vw
+			}
 		</style>
 		<script>
 			numberOfButtons = 64;
@@ -29,8 +32,28 @@
 			btn = new Array(numberOfButtons);
 			function play(B){
 				n = btn.indexOf(B);
-				if(pg[n]==1){
+				console.log(btnFlag.checked)
+				if(btnFlag.checked){
+					if(btn[n].value=='Ф'){
+						btn[n].value=' ';
+					}
+					else if(btn[n].value==' '){
+						btn[n].value='Ф';
+					}
+					return
+				}
+				if(pg[n]){
 					btn[n].value = 'm'
+					setTimeout(()=>{
+						if(window.confirm('Вы проиграли.\nСыграем еще?')){
+							for(i in btn){
+								btn[i].value=' ';
+							}
+							pg.sort(()=>Math.random()-0.5)
+						}
+						else{
+						}
+					},100);
 					return;
 				}
 				m=0;
@@ -50,7 +73,14 @@
 	<body>
 		<div id=puzzle>
 		</div>
+		<form>
+			Ход
+			<input type=radio name=group1 checked>
+			<input type=radio name=group1 id='fiag'>
+			Флаг
+		</form>
 		<script>
+			btnFlag=document.getElementById('fiag');
 			for(i=0; i<numberOfButtons; i++){
 				btn[i] = document.createElement("input");
 				btn[i].type = "button";
